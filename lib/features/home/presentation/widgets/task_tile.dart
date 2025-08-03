@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_manager/features/home/data/models/task_model.dart';
+import 'package:task_manager/features/home/presentation/home_viewmodel.dart';
 
-class TaskTile extends StatefulWidget {
-  final String title;
-  const TaskTile({super.key, required this.title});
+class TaskTile extends StatelessWidget {
+  final TaskModel task;
+  const TaskTile({super.key, required this.task});
 
-  @override
-  State<TaskTile> createState() => _TaskTileState();
-}
-
-class _TaskTileState extends State<TaskTile> {
-  bool? isChecked = false;
   @override
   Widget build(BuildContext context) {
+    var vm = context.read<HomeViewmodel>();
     return Padding(
       padding: const EdgeInsets.only(bottom: 7),
       child: Card(
@@ -21,29 +19,27 @@ class _TaskTileState extends State<TaskTile> {
             spacing: 15,
             children: [
               Container(
-                width: 30,
-                height: 30,
+                width: 28,
+                height: 28,
                 decoration: BoxDecoration(
                   border: Border.all(width: 0.7, color: Colors.grey),
                   color:
-                      isChecked!
+                      task.isCompleted
                           ? Theme.of(context).primaryColor
                           : Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Checkbox(
-                  value: isChecked,
+                  value: task.isCompleted,
                   onChanged: (checked) {
-                    setState(() {
-                      isChecked = checked;
-                    });
+                    vm.toggleTask(task);
                   },
                   activeColor: Colors.transparent,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   side: BorderSide.none,
                 ),
               ),
-              Text(widget.title, style: TextStyle(fontSize: 17)),
+              Text(task.title, style: TextStyle(fontSize: 17)),
             ],
           ),
         ),

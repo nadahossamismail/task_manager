@@ -22,7 +22,7 @@ class TaskTile extends StatelessWidget {
                 width: 28,
                 height: 28,
                 decoration: BoxDecoration(
-                  border: Border.all(width: 0.7, color: Colors.grey),
+                  border: Border.all(width: 0.8, color: Colors.grey),
                   color:
                       task.isCompleted
                           ? Theme.of(context).primaryColor
@@ -39,7 +39,19 @@ class TaskTile extends StatelessWidget {
                   side: BorderSide.none,
                 ),
               ),
-              Text(task.title, style: TextStyle(fontSize: 17)),
+              Text(
+                task.title,
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.3,
+                  decorationThickness: 1.3,
+                  decoration:
+                      task.isCompleted
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none,
+                ),
+              ),
             ],
           ),
         ),

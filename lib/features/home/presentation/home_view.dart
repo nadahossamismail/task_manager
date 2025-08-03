@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/core/app_strings.dart';
 import 'package:task_manager/features/home/presentation/home_viewmodel.dart';
 import 'package:task_manager/features/home/presentation/widgets/add_Task.dart';
 import 'package:task_manager/features/home/presentation/widgets/empty_list.dart';
@@ -10,7 +11,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var taskList = Provider.of<HomeViewmodel>(context).tasksList;
+    var taskList = Provider.of<HomeViewmodel>(context).loadTasks();
     void openBottomSheet() {
       showModalBottomSheet(
         isScrollControlled: true,
@@ -38,8 +39,12 @@ class HomeView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 30, left: 30, bottom: 5),
               child: Text(
-                "Tasks",
-                style: TextStyle(fontSize: 27, fontWeight: FontWeight.w600),
+                AppStrings.homeTitle,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.2,
+                ),
               ),
             ),
             taskList.isEmpty ? EmptyList() : TasksList(tasksList: taskList),

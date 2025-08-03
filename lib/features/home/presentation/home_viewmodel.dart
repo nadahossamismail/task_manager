@@ -1,30 +1,37 @@
 import 'dart:collection';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:task_manager/features/home/data/models/task_model.dart';
+import 'package:task_manager/features/home/data/repositories/task_repository.dart';
 
 class HomeViewmodel extends ChangeNotifier {
-  final List<TaskModel> _tasksList = [];
+  final TaskRepository taskRepository;
+  List<TaskModel> _tasksList = [];
+
+  HomeViewmodel({required this.taskRepository});
 
   UnmodifiableListView<TaskModel> get tasksList =>
       UnmodifiableListView(_tasksList);
 
-  void loadTasks() {
- 
-    notifyListeners();
+  List<TaskModel> loadTasks() {
+    _tasksList = taskRepository.loadTasks();
+    log("view model");
+    log(_tasksList.length.toString());
+    return _tasksList;
   }
 
   void addTask(TaskModel task) {
-    _tasksList.add(task);
+    taskRepository.addTask(task);
     notifyListeners();
   }
 
   void toggleTask(TaskModel task) {
-    task.isCompleted = !task.isCompleted;
+    taskRepository.toggleTask(task);
     notifyListeners();
   }
 
   void deleteTask(TaskModel task) {
-    _tasksList.remove(task);
+    taskRepository.deleteTask(task);
     notifyListeners();
   }
 }

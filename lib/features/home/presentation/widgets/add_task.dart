@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/core/app_strings.dart';
 import 'package:task_manager/features/home/data/models/task_model.dart';
 import 'package:task_manager/features/home/presentation/home_viewmodel.dart';
 
@@ -18,9 +19,11 @@ class AddTask extends StatelessWidget {
         children: [
           TextField(
             controller: titleController,
-            maxLength: 20,
+            maxLength: 30,
+            enableInteractiveSelection: true,
+            readOnly: false,
             decoration: const InputDecoration(
-              hintText: " e.g. make The bed",
+              hintText: AppStrings.hintTextForTitle,
               hintStyle: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,
@@ -35,7 +38,7 @@ class AddTask extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               if (titleController.text.trim().isNotEmpty) {
-                vm.addTask(TaskModel(title: titleController.text));
+                vm.addTask(TaskModel(title: titleController.text.trim()));
                 titleController.clear();
                 Navigator.pop(context);
               }

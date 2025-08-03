@@ -31,7 +31,7 @@ class TasksList extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Icon(Icons.delete, color: Colors.white),
               ),
-              key: ValueKey(index),
+              key: UniqueKey(),
               child: TaskTile(task: tasksList[index]),
             ),
       ),

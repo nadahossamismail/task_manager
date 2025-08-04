@@ -10,8 +10,6 @@ A simple task manager app built using **Flutter**, following the **MVVM architec
 - Clean and intuitive user interface.
 - Architecture: MVVM + Repository Pattern.
 
-
-
 ## Demo
 To see the app in action, check out this [demo](https://drive.google.com/drive/folders/1EmluJmn6NWHD-4-5E1-X0qdpDALs5AgA?usp=drive_link).
 
@@ -81,6 +79,6 @@ This project leverages the following core packages:
    
 5. **Run the app:**
     ```bash
-    flutter run
+    flutter run --release
     ```
 

@@ -4,10 +4,28 @@ import 'package:task_manager/core/app_strings.dart';
 import 'package:task_manager/features/home/data/models/task_model.dart';
 import 'package:task_manager/features/home/presentation/home_viewmodel.dart';
 
-class AddTask extends StatelessWidget {
-  final TextEditingController titleController = TextEditingController();
+class AddTask extends StatefulWidget {
+  const AddTask({super.key});
 
-  AddTask({super.key});
+  @override
+  State<AddTask> createState() => _AddTaskState();
+}
+
+class _AddTaskState extends State<AddTask> {
+  late TextEditingController titleController;
+
+  @override
+  void initState() {
+    titleController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var vm = context.read<HomeViewmodel>();

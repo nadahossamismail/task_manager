@@ -11,10 +11,12 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  
+  await initDependencies();
   await Hive.initFlutter();
   Hive.registerAdapter(TaskModelAdapter());
   await Hive.openBox<TaskModel>(AppStrings.hiveBox);
-  await initDependencies();
+  
   FlutterNativeSplash.remove();
 
   runApp(const MainApp());
@@ -28,7 +30,7 @@ class MainApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create:
           (BuildContext context) =>
-              HomeViewmodel(taskRepository: serviceLocator()),
+              HomeViewmodel(taskRepository: serviceLocator())..loadTasks(),
       child: MaterialApp(debugShowCheckedModeBanner: false, home: HomeView()),
     );
   }

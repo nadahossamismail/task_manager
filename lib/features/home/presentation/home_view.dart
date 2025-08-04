@@ -6,12 +6,24 @@ import 'package:task_manager/features/home/presentation/widgets/add_Task.dart';
 import 'package:task_manager/features/home/presentation/widgets/empty_list.dart';
 import 'package:task_manager/features/home/presentation/widgets/tasks_list.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    context.read<HomeViewmodel>().loadTasks();
+  });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var taskList = Provider.of<HomeViewmodel>(context).loadTasks();
+    var taskList = context.watch<HomeViewmodel>().tasksList;
     void openBottomSheet() {
       showModalBottomSheet(
         isScrollControlled: true,

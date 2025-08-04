@@ -10,21 +10,21 @@ class TaskLocalDatasource extends TaskDatasource {
   TaskLocalDatasource({required this.taskBox});
 
   @override
-  void addTask(TaskModel task) {
+  Future<void> addTask(TaskModel task) async {
     try {
-      taskBox.add(task);
-    } catch (e) {}
+      await taskBox.add(task);
+    } catch (e) {
+      log("LocalDataBase:addTask => ${e.toString()}");
+    }
   }
 
   @override
-  void deleteTask(TaskModel task) {
-    task.delete();
+  Future<void> deleteTask(TaskModel task) async {
+    await task.delete();
   }
 
   @override
   List<TaskModel> loadTasks() {
-    log("data source");
-    log(taskBox.values.toList().length.toString());
     try {
       return taskBox.values.toList();
     } catch (e) {
@@ -33,10 +33,12 @@ class TaskLocalDatasource extends TaskDatasource {
   }
 
   @override
-  void toggleTask(TaskModel task) {
+  Future<void> toggleTask(TaskModel task) async {
     try {
       task.isCompleted = !task.isCompleted;
-      task.save();
-    } catch (e) {}
+      await task.save();
+    } catch (e) {
+      log("LocalDataBase:toggleTask => ${e.toString()}");
+    }
   }
 }
